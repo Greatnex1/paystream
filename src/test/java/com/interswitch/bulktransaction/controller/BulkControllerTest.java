@@ -77,7 +77,7 @@ class BulkControllerTest {
 
         when(bulkService.getBatchStatus(batchId)).thenReturn(Mono.just(results));
 
-        StepVerifier.create(controller.getStatus(batchId))
+        StepVerifier.create(controller.viewStatus(batchId))
                 .assertNext(resp -> {
                     assertEquals(HttpStatus.OK, resp.getStatusCode());
                     assertEquals(2, resp.getBody().size());
@@ -92,7 +92,7 @@ class BulkControllerTest {
         String batchId = "BATCH_EMPTY";
         when(bulkService.getBatchStatus(batchId)).thenReturn(Mono.just(List.of()));
 
-        StepVerifier.create(controller.getStatus(batchId))
+        StepVerifier.create(controller.viewStatus(batchId))
                 .assertNext(resp -> assertEquals(HttpStatus.NOT_FOUND, resp.getStatusCode()))
                 .verifyComplete();
 
@@ -104,7 +104,7 @@ class BulkControllerTest {
         String batchId = "BATCH_ERR";
         when(bulkService.getBatchStatus(batchId)).thenReturn(Mono.error(new RuntimeException("DB error")));
 
-        StepVerifier.create(controller.getStatus(batchId))
+        StepVerifier.create(controller.viewStatus(batchId))
                 .expectErrorMatches(err -> err instanceof RuntimeException &&
                         err.getMessage().contains("DB error"))
                 .verify();
