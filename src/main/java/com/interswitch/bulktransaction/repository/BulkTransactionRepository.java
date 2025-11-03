@@ -7,5 +7,6 @@ import reactor.core.publisher.Mono;
 
 public interface BulkTransactionRepository extends ReactiveCrudRepository<BulkTransaction,Long> {
     Flux<BulkTransaction> findAllByBatchId(String batchId);
+    Flux<BulkTransaction> findAllByStatus(String status);
     Mono<BulkTransaction> findByBatchIdAndTransactionId(String batchId, String transactionId);
 }
