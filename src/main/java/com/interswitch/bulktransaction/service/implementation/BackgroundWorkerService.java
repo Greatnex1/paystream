@@ -14,8 +14,14 @@ import reactor.core.publisher.Sinks;
 @Component
 @RequiredArgsConstructor
 public class BackgroundWorkerService {
-
+    /**
+     * Reactive downstream integration service responsible for calling external transaction endpoints.
+     */
     private final TransactionServiceImplementation integrationService;
+
+    /**
+     * Reactive repository for accessing and updating transaction records.
+     */
     private final BulkTransactionRepository txRepo;
 
     private final Sinks.Many<ProcessingItem> sink = Sinks.many().unicast().onBackpressureBuffer();
