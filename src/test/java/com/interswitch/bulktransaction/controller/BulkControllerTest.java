@@ -2,7 +2,7 @@ package com.interswitch.bulktransaction.controller;
 
 import com.interswitch.bulktransaction.dto.BulkRequestDto;
 import com.interswitch.bulktransaction.dto.response.BulkResponse;
-import com.interswitch.bulktransaction.service.implementation.BulkProcessingServiceServiceImplementation;
+import com.interswitch.bulktransaction.service.implementation.BulkProcessingServiceImplementation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 class BulkControllerTest {
 
     @Mock
-    private BulkProcessingServiceServiceImplementation bulkService;
+    private BulkProcessingServiceImplementation bulkService;
 
     @InjectMocks
     private BulkController controller;
