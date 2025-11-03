@@ -2,7 +2,7 @@ package com.interswitch.bulktransaction.service.implementation;
 
 import com.interswitch.bulktransaction.dto.BulkRequestDto;
 import com.interswitch.bulktransaction.dto.response.TransactionResponse;
-import com.interswitch.bulktransaction.service.TransactionService;
+import com.interswitch.bulktransaction.service.interfaces.TransactionService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
