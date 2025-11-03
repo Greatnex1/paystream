@@ -1,0 +1,7 @@
+FROM alpine/java:17-jre
+# Set the timezone
+ENV TZ=Africa/Lagos
+
+ADD target/bulktransaction.jar bulktransaction.jar
+COPY target/*.jar bulktransaction.jar
+ENTRYPOINT ["java", "-jar", "/bulktransaction.jar"]
