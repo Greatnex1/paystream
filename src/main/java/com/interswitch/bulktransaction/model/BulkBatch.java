@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
-@Table("bulk_bah")
+@Table("bulk_batch")
 @Data
 public class BulkBatch {
     @Id
