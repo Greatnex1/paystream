@@ -4,10 +4,10 @@ import com.interswitch.bulktransaction.dto.BulkRequestDto;
 import com.interswitch.bulktransaction.dto.response.BulkResponse;
 import com.interswitch.bulktransaction.model.BulkBatch;
 import com.interswitch.bulktransaction.model.BulkTransaction;
-import com.interswitch.bulktransaction.model.WorkItem;
+import com.interswitch.bulktransaction.model.ProcessingItem;
 import com.interswitch.bulktransaction.repository.BulkBatchRepository;
 import com.interswitch.bulktransaction.repository.BulkTransactionRepository;
-import com.interswitch.bulktransaction.service.implementation.BulkProcessingServiceServiceImplementation;
+import com.interswitch.bulktransaction.service.implementation.BulkProcessingServiceImplementation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-class BulkProcessingServiceServiceImplementationTest {
+class BulkProcessingServiceImplementationTest {
 
     @Mock
     private BulkBatchRepository batchRepo;
@@ -39,7 +39,7 @@ class BulkProcessingServiceServiceImplementationTest {
     private BackgroundWorker worker;
 
     @InjectMocks
-    private BulkProcessingServiceServiceImplementation service;
+    private BulkProcessingServiceImplementation service;
 
 //    @BeforeEach
 //    void setup() {
@@ -77,7 +77,7 @@ class BulkProcessingServiceServiceImplementationTest {
 
         verify(batchRepo, times(1)).save(any(BulkBatch.class));
         verify(txRepo, times(1)).saveAll(anyList());
-        verify(worker, times(2)).submit(any(WorkItem.class));
+        verify(worker, times(2)).submit(any(ProcessingItem.class));
     }
 
     @Test

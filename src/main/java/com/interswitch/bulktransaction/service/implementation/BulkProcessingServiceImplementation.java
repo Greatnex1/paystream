@@ -4,7 +4,7 @@ import com.interswitch.bulktransaction.dto.BulkRequestDto;
 import com.interswitch.bulktransaction.dto.response.BulkResponse;
 import com.interswitch.bulktransaction.model.BulkBatch;
 import com.interswitch.bulktransaction.model.BulkTransaction;
-import com.interswitch.bulktransaction.model.WorkItem;
+import com.interswitch.bulktransaction.model.ProcessingItem;
 import com.interswitch.bulktransaction.repository.BulkBatchRepository;
 import com.interswitch.bulktransaction.repository.BulkTransactionRepository;
 import com.interswitch.bulktransaction.service.BackgroundWorker;
@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class BulkProcessingServiceServiceImplementation implements BulkProcessingService {
+public class BulkProcessingServiceImplementation implements BulkProcessingService {
 
     private final BulkBatchRepository batchRepo;
     private final BulkTransactionRepository txRepo;
@@ -86,7 +86,7 @@ public class BulkProcessingServiceServiceImplementation implements BulkProcessin
                                 e.getToAccount(),
                                 e.getAmount()
                         );
-                        worker.submit(new WorkItem(e.getBatchId(), txReq));
+                        worker.submit(new ProcessingItem(e.getBatchId(), txReq));
                     });
                     return Mono.just(request.getBatchId());
                 })
