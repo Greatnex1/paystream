@@ -22,7 +22,6 @@ public class TransactionServiceImplementation implements TransactionService {
 
     @Retry(name = "transactionServiceRetry", fallbackMethod = "fallbackTransaction")
     @CircuitBreaker(name = "transactionServiceCircuitBreaker", fallbackMethod = "fallbackTransaction")
-
     public Mono<TransactionResponse> callDownstream(BulkRequestDto.TransactionRequest tx) {
 
         return webClient.post()
@@ -38,26 +37,10 @@ public class TransactionServiceImplementation implements TransactionService {
     }
 
 
-
-
     public Mono<TransactionResponse> fallbackTransaction(BulkRequestDto.TransactionRequest tx, Throwable ex) {
         log.warn("Fallback for TX {} due to {}", tx.getTransactionId(), ex.toString());
         return Mono.just(new TransactionResponse(tx.getTransactionId(), "FAILED", "Transaction-Service unavailable"));
     }
 }
 
-//    public Mono<TransactionResponse> callDownstream(BulkRequestDto.TransactionRequest tx) {
-//        return webClient.post()
-//                .uri("/transactions")
-//                .header("Idempotency-Key", tx.getTransactionId())
-//                .bodyValue(tx)
-//                .retrieve()
-//                .bodyToMono(TransactionResponse.class)
-//                .timeout(Duration.ofSeconds(5))
-//                .onErrorResume(e -> {
-//                    String reason = (e instanceof WebClientResponseException w) ? w.getMessage() : e.getMessage();
-//                    log.warn("Downstream call failed for {}: {}", tx.getTransactionId(), reason);
-//                    return Mono.just(new TransactionResponse(tx.getTransactionId(), "FAILED", reason));
-//                });
-//    }
-//}
+
