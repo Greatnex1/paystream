@@ -7,6 +7,7 @@ import com.interswitch.bulktransaction.model.BulkTransaction;
 import com.interswitch.bulktransaction.model.ProcessingItem;
 import com.interswitch.bulktransaction.repository.BulkBatchRepository;
 import com.interswitch.bulktransaction.repository.BulkTransactionRepository;
+import com.interswitch.bulktransaction.service.implementation.BackgroundWorkerService;
 import com.interswitch.bulktransaction.service.implementation.BulkProcessingServiceImplementation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -36,15 +37,11 @@ class BulkProcessingServiceImplementationTest {
     private BulkTransactionRepository txRepo;
 
     @Mock
-    private BackgroundWorker worker;
+    private BackgroundWorkerService worker;
 
     @InjectMocks
     private BulkProcessingServiceImplementation service;
 
-//    @BeforeEach
-//    void setup() {
-//        MockitoAnnotations.openMocks(this);
-//    }
 
     @Test
     void shouldProcessBulkSuccessfully() {

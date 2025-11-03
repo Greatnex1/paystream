@@ -1,8 +1,7 @@
-package com.interswitch.bulktransaction.service;
+package com.interswitch.bulktransaction.service.implementation;
 
 import com.interswitch.bulktransaction.model.ProcessingItem;
 import com.interswitch.bulktransaction.repository.BulkTransactionRepository;
-import com.interswitch.bulktransaction.service.implementation.TransactionServiceImplementation;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

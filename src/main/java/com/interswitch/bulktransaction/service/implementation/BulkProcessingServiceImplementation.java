@@ -7,8 +7,7 @@ import com.interswitch.bulktransaction.model.BulkTransaction;
 import com.interswitch.bulktransaction.model.ProcessingItem;
 import com.interswitch.bulktransaction.repository.BulkBatchRepository;
 import com.interswitch.bulktransaction.repository.BulkTransactionRepository;
-import com.interswitch.bulktransaction.service.BackgroundWorker;
-import com.interswitch.bulktransaction.service.BulkProcessingService;
+import com.interswitch.bulktransaction.service.interfaces.BulkProcessingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ import java.util.stream.Collectors;
  * <ol>
  *   <li>A client submits a bulk request (list of transactions).</li>
  *   <li>The service stores the batch and transaction records as “PENDING”.</li>
- *   <li>Each transaction is dispatched to the {@link BackgroundWorker} for downstream processing.</li>
+ *   <li>Each transaction is dispatched to the {@link BackgroundWorkerService} for downstream processing.</li>
  *   <li>Clients can query the batch status using {@link #getBatchStatus(String)}.</li>
  * </ol>
  *
@@ -54,7 +53,7 @@ public class BulkProcessingServiceImplementation implements BulkProcessingServic
 
     private final BulkBatchRepository batchRepo;
     private final BulkTransactionRepository txRepo;
-    private final BackgroundWorker worker;
+    private final BackgroundWorkerService worker;
 
     public Mono<String> processBulk(BulkRequestDto request) {
         String submitterId = "system-client";
