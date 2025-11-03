@@ -4,8 +4,7 @@ package com.interswitch.bulktransaction.controller;
 import com.interswitch.bulktransaction.controller.constants.ApplicationUrl;
 import com.interswitch.bulktransaction.dto.BulkRequestDto;
 import com.interswitch.bulktransaction.dto.response.BulkResponse;
-import com.interswitch.bulktransaction.service.implementation.BulkProcessingServiceServiceImplementation;
-//import com.interswitch.bulktransaction.service.implementation.BulkTransactionServiceImplementation;
+import com.interswitch.bulktransaction.service.implementation.BulkProcessingServiceImplementation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ import java.util.List;
  *
  * <h3>Features</h3>
  * <ul>
- *     <li>Accepts bulk transaction requests and delegates processing to {@link BulkProcessingServiceServiceImplementation}.</li>
+ *     <li>Accepts bulk transaction requests and delegates processing to {@link BulkProcessingServiceImplementation}.</li>
  *     <li>Returns an HTTP 202 (Accepted) response with a {@code Location} header to check batch status asynchronously.</li>
  *     <li>Provides a status endpoint to query the processing results of a batch using its ID.</li>
  * </ul>
@@ -37,7 +36,7 @@ public class BulkController {
     /**
      * Service that handles business logic for processing and retrieving bulk transaction batches.
      */
-    private final BulkProcessingServiceServiceImplementation bulkService;
+    private final BulkProcessingServiceImplementation bulkService;
 
     /**
      * Submits a new bulk transaction batch for asynchronous processing.
@@ -50,7 +49,8 @@ public class BulkController {
      * @param request the {@link BulkRequestDto} containing the list of transactions to be processed
      * @return a {@link Mono} emitting a {@link ResponseEntity} with HTTP 202 on success, or 500 on error
      *
-     *   */
+     *
+     */
     @PostMapping(ApplicationUrl.SubmitBulkUrl)
     public Mono<ResponseEntity<Void>> submitBulk(@Valid @RequestBody BulkRequestDto request) {
         return bulkService.processBulk(request)
