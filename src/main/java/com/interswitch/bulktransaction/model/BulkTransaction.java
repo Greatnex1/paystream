@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
-@Table("bulk_trx")
+@Table("bulk_transaction")
 public class BulkTransaction {
     @Id
     private Long id;
@@ -18,9 +18,9 @@ public class BulkTransaction {
     private String fromAccount;
     private String toAccount;
     private BigDecimal amount;
-    private String status; // PENDING, SUCCESS, FAILED
+    private String status;
     private String failureReason;
-    private Integer attempts = 0;
+    private Integer attempts ;
     private LocalDateTime dateCreated;
     private LocalDateTime dateUpdated ;
 }
