@@ -31,9 +31,10 @@ public class SecurityConfig {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers(HttpMethod.POST, "/api/v1/bulk-transactions").hasRole("USER")
+                        .pathMatchers("/api/v1/authenticate").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/api/v1/submit/bulk-transactions").hasRole("USER")
                         .pathMatchers(HttpMethod.GET, "/api/v1/bulk-transactions/**").hasRole("ADMIN")
-                        .pathMatchers("/actuator/**").hasRole("ADMIN")
+                        .pathMatchers("/actuator/health").hasRole("ADMIN")
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION)

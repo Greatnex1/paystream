@@ -5,6 +5,8 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -13,8 +15,15 @@ import java.util.List;
 
 @Component
 public class JwtTokenProvider {
-    private final Key key = Keys.hmacShaKeyFor("my-very-secret-signing-key-which-is-long".getBytes());
-    private final long validityInMs = 3600_000; // 1 hour
+
+    private final Key key;
+    private final long validityInMs;
+
+    public JwtTokenProvider(@Value("${jwt.secret}") String secret,
+                            @Value("${jwt.validity-ms}") long validityInMs) {
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+        this.validityInMs = validityInMs;
+    }
 
     public String generateToken(String username, List<String> roles) {
         return Jwts.builder()
@@ -27,6 +36,9 @@ public class JwtTokenProvider {
     }
 
     public Jws<Claims> validateToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
     }
 }
