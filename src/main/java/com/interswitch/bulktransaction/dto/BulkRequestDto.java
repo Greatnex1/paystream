@@ -2,6 +2,7 @@ package com.interswitch.bulktransaction.dto;
 
 //import com.interswitch.bulktransaction.dto.request.TransactionRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -25,7 +26,7 @@ public class BulkRequestDto {
    @Data
    @AllArgsConstructor
    public static class TransactionRequest {
-      @NotEmpty
+      @NotBlank
       private String transactionId;
       @NotEmpty
       private String fromAccount;
