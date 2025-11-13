@@ -1,4 +1,4 @@
-CREATE TABLE bulk_bah (
+CREATE TABLE bulk_batch (
                             id BIGSERIAL PRIMARY KEY,
                             batch_id TEXT UNIQUE NOT NULL,
                             status TEXT NOT NULL,

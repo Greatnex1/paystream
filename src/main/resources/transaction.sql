@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS bulk_trx;
-CREATE TABLE  bulk_trx(
-                                      id BIGSERIAL PRIMARY KEY,
+DROP TABLE IF EXISTS bulk_transaction;
+CREATE TABLE  bulk_transaction(
+                                  id BIGSERIAL PRIMARY KEY,
                                   batch_id TEXT NOT NULL REFERENCES bulk_bah(batch_id),
                                   transaction_id TEXT NOT NULL,
                                   from_account TEXT NOT NULL,

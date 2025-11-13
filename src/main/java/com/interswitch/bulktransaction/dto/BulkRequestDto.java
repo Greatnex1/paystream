@@ -36,6 +36,4 @@ public class BulkRequestDto {
       @Positive
       private BigDecimal amount;
    }
-
-
 }

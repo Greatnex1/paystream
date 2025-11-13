@@ -44,14 +44,6 @@ public class GlobalExceptionHandler {
                 .body(new CustomErrorResponse("JWT token has expired. Please refresh.",HttpStatus.UNAUTHORIZED.value()));
     }
 
-    @ExceptionHandler({JwtException.class})
-    public ResponseEntity<CustomErrorResponse> handleJwtException(JwtException ex) {
-        log.debug("JWT token has expired 401: {}", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(new CustomErrorResponse("JWT token has expired. Please refresh.",HttpStatus.UNAUTHORIZED.value()));
-    }
-
-
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<CustomErrorResponse> handleInvalidCredentials(JwtException ex) {
         log.warn("Authentication failed: {}", ex.getMessage());

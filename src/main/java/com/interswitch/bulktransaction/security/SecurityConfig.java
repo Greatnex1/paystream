@@ -32,9 +32,9 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/api/v1/authenticate").permitAll()
-                        .pathMatchers(HttpMethod.POST, "/api/v1/submit/bulk-transactions").hasRole("USER")
-                        .pathMatchers(HttpMethod.GET, "/api/v1/bulk-transactions/**").hasRole("ADMIN")
-                        .pathMatchers("/actuator/health").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.POST, "/api/v1/submit/bulk-transactions").hasRole("ROLE_USER")
+                        .pathMatchers(HttpMethod.GET, "/api/v1/bulk-transactions/**").hasRole("ROLE_ADMIN")
+                        .pathMatchers("/actuator/health").hasRole("ROLE_ADMIN")
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
